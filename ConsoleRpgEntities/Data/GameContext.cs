@@ -13,6 +13,7 @@ namespace ConsoleRpgEntities.Data
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<Inventory> Inventory { get; set; }
 
         public GameContext(DbContextOptions<GameContext> options) : base(options)
         {
@@ -38,6 +39,7 @@ namespace ConsoleRpgEntities.Data
 
             // Call the separate configuration method to set up Equipment entity relationships
             ConfigureEquipmentRelationships(modelBuilder);
+            ConfigureInventoryRelationships(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -74,6 +76,20 @@ namespace ConsoleRpgEntities.Data
             // accidental recursive deletions. Here, by setting DeleteBehavior.Restrict, deleting an Item
             // (Weapon or Armor) will simply nullify the WeaponId or ArmorId in Equipment rather than 
             // cascading a delete through multiple paths.
+        }
+
+        private void ConfigureInventoryRelationships(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Inventory>()
+                .HasOne(p => p.Player)
+                .WithOne(p => p.Inventory)
+                .HasForeignKey<Inventory>(p => p.PlayerId);
+
+            modelBuilder.Entity<Player>()
+                .HasOne(i => i.Inventory)
+                .WithOne(i => i.Player)
+                .HasForeignKey<Inventory>(i => i.PlayerId);
         }
     }
 }

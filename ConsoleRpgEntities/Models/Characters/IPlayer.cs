@@ -1,5 +1,6 @@
 ﻿using ConsoleRpgEntities.Models.Abilities.PlayerAbilities;
 using ConsoleRpgEntities.Models.Attributes;
+using ConsoleRpgEntities.Models.Equipments;
 
 namespace ConsoleRpgEntities.Models.Characters;
 
@@ -13,5 +14,8 @@ public interface IPlayer
     void Attack(ITargetable target);
     void UseAbility(IAbility ability, ITargetable target);
 
+    Inventory GetInventory();
+    void UseInventoryItem(string targetName);
 
+    void EquipInventoryItem(string targetName);
 }

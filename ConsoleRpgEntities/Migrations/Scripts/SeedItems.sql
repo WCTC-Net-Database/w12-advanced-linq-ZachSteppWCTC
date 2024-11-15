@@ -136,3 +136,7 @@ VALUES
     ('Bronze Shield', 'Armor', 0, 18, 5.5, 300),
     ('Javelin of Light', 'Weapon', 20, 0, 3.2, 350),
     ('Arcane Orb', 'Accessory', 4, 6, 0.4, 400);
+
+
+INSERT INTO Inventory 
+VALUES (1)
